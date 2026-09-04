@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ministry of Consumer Affairs, Food & Public Distribution | Crop Procurement Portal</title>
+  <meta name="description" content="Official Government of India Crop Procurement System & Portal for farmers. Manage produce registration, book procurement slots, track live tokens, and receive direct MSP payments (DBT).">
+  <meta name="theme-color" content="#143525">
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Crop Procurement Center Portal | Government of India">
+  <meta property="og:description" content="Direct Benefit Transfer (DBT), Produce Registration, Slot Booking & Real-Time Token Queue Portal for Farmers.">
+  <meta property="og:image" content="assets/farmer-illustration.jpg">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23DFC396'><path d='M12 10a6 6 0 0 0-6-6H3v2a6 6 0 0 0 6 6h3'/><path d='M12 14a6 6 0 0 1 6-6h3v2a6 6 0 0 1-6 6h-3'/><path d='M12 22V8'/><circle cx='12' cy='19' r='1.5'/></svg>">
+  
+  <!-- Google Fonts: Cormorant Garamond, DM Serif Display, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css?v=20260904_11">
+</head>
+<body>
+  <!-- LOGIN SCREEN -->
+  <div class="login-wrapper" id="loginScreen">
+    <!-- LEFT PANEL: Green Agricultural Branding -->
+    <section class="brand-panel">
+      <!-- Decorative background arcs -->
+      <svg class="bg-arcs" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="580" cy="50" r="280" stroke="#dfc396" stroke-opacity="0.18" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <circle cx="580" cy="50" r="380" stroke="#dfc396" stroke-opacity="0.14" stroke-width="1.5"/>
+        <circle cx="580" cy="50" r="480" stroke="#dfc396" stroke-opacity="0.09" stroke-width="1.2"/>
+        <path d="M 580, -100 A 450 450 0 0 0 130 350" stroke="#dfc396" stroke-opacity="0.22" stroke-width="1.5" />
+      </svg>
+
+      <!-- Brand Header -->
+      <header class="brand-header">
+        <div class="logo-badge sapling-badge" id="logoBadge" title="Agricultural Sapling Logo">
+          <svg class="sprout-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 10a6 6 0 0 0-6-6H3v2a6 6 0 0 0 6 6h3" />
+            <path d="M12 14a6 6 0 0 1 6-6h3v2a6 6 0 0 1-6 6h-3" />
+            <path d="M12 22V8" />
+            <circle cx="12" cy="19" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="brand-name">AGRICULTURE</span>
+      </header>
+
+      <!-- Brand Main Typography -->
+      <div class="brand-content">
+        <span class="tagline">ROOTED IN SOIL</span>
+        <h1 class="brand-title">
+          <span>CROP</span>
+          <span>PROCUREMENT</span>
+          <span>CENTER</span>
+        </h1>
+        <div class="accent-line" aria-hidden="true"></div>
+
+        <!-- Illustration Card -->
+        <div class="farmer-card-container">
+          <div class="farmer-card">
+            <img 
+              src="assets/farmer-illustration.jpg" 
+              alt="Farmer plowing agricultural fields with oxen" 
+              class="farmer-card-img"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+
+      <footer class="brand-footer">
+        <span class="support-text">Ministry of Consumer Affairs, Food &amp; Public Distribution, India</span>
+      </footer>
+    </section>
+
+    <!-- RIGHT PANEL: Warm Cream Authentication Form -->
+    <main class="auth-panel">
+      <div class="auth-header">
+        <span class="step-indicator" id="authStepIndicator">FARMER PORTAL / 01</span>
+      </div>
+
+      <div class="form-container">
+        <!-- Prominent Side-by-Side Login Selection: Farmer Login & Procurement Centre Login -->
+        <div class="login-type-selector">
+          <button type="button" class="login-type-card active" id="tabFarmerLogin">
+            <span class="type-card-badge">FARMER DESK</span>
+            <span class="type-card-icon">🌾</span>
+            <span class="type-card-title">FARMER LOGIN</span>
+          </button>
+          <button type="button" class="login-type-card" id="tabOfficerLogin">
+            <span class="type-card-badge">OFFICER DESK</span>
+            <span class="type-card-icon">🏛️</span>
+            <span class="type-card-title">PROCUREMENT CENTRE LOGIN</span>
+          </button>
+        </div>
+
+        <div class="form-title-group">
+          <h2 class="form-title" id="loginFormTitle">
+            <span class="line-1">FARMER</span>
+            <span class="line-2">LOGIN</span>
+          </h2>
+        </div>
+
+        <form id="loginForm" class="auth-form" novalidate>
+          <!-- Mobile Number / Officer ID Input -->
+          <div class="form-group" id="mobileGroup">
+            <label for="mobileNumber" class="form-label" id="identifierLabel">Mobile number</label>
+            <div class="input-wrapper">
+              <span class="input-icon" id="identifierIcon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </span>
+              <input 
+                type="text" 
+                id="mobileNumber" 
+                name="mobileNumber" 
+                class="form-input" 
+                placeholder="e.g. 07123 456 789" 
+                autocomplete="tel" 
+                required
+                maxlength="25"
+              />
+            </div>
+            <span class="error-msg" id="mobileError"></span>
+          </div>
+
+          <!-- Password Input -->
+          <div class="form-group" id="passwordGroup">
+            <label for="password" class="form-label" id="passwordLabel">Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                class="form-input" 
+                placeholder="Enter your password" 
+                autocomplete="current-password" 
+                required
+              />
+              <button 
+                type="button" 
+                id="togglePassword" 
+                class="toggle-password-btn" 
+                aria-label="Toggle password visibility"
+                title="Show/Hide Password"
+              >
+                <!-- Eye open icon -->
+                <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <!-- Eye slashed icon -->
+                <svg class="icon-eye-off hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+            <span class="error-msg" id="passwordError"></span>
+          </div>
+
+          <!-- Remember Me Checkbox -->
+          <div class="form-row-checkbox">
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="rememberMe" name="rememberMe" class="custom-checkbox-input" checked>
+              <span class="checkbox-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="checkbox-text" id="rememberMeText">REMEMBER ME</span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="loginBtn" class="btn-login">
+            <span class="btn-text" id="loginBtnText">LOGIN</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+            <span class="btn-loader hidden" aria-hidden="true"></span>
+          </button>
+
+          <!-- Register Prompt -->
+          <p class="register-prompt" id="registerPromptArea">
+            Don't have an account? Then <button type="button" id="openRegisterBtn" class="link-register">create an account.</button>
+          </p>
+        </form>
+      </div>
+
+      <!-- Bottom Decorative Botanical Leaves -->
+      <div class="botanical-decoration" aria-hidden="true">
+        <!-- Floating dots -->
+        <span class="deco-dot dot-1"></span>
+        <span class="deco-dot dot-2"></span>
+        <span class="deco-dot dot-3"></span>
+        <span class="deco-dot dot-4"></span>
+        
+        <!-- Center Sprout Art -->
+        <svg class="botanical-leaves-svg" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Left Leaf (Olive Green) -->
+          <path d="M100 100 C85 85 70 65 72 45 C75 25 92 35 98 60 C100 75 100 90 100 100 Z" fill="#6B804E" />
+          <!-- Right Leaf (Mustard Gold) -->
+          <path d="M100 100 C115 85 130 65 128 45 C125 25 108 35 102 60 C100 75 100 90 100 100 Z" fill="#D4A24A" />
+          <!-- Center Stem -->
+          <path d="M100 100 L100 65" stroke="#4A5836" stroke-width="2.5" stroke-linecap="round" />
+          <!-- Small auxiliary outline leaf -->
+          <path d="M165 95 C175 85 185 70 182 55 C180 45 168 50 165 65 C164 75 165 88 165 95 Z" stroke="#B87B56" stroke-width="1.6" fill="none"/>
+          <path d="M35 95 C25 85 15 70 18 55 C20 45 32 50 35 65 C36 75 35 88 35 95 Z" stroke="#6B804E" stroke-width="1.6" fill="none" opacity="0.6"/>
+        </svg>
+      </div>
+    </main>
+  </div>
+
+  <!-- POST-LOGIN FARMER DASHBOARD INTERFACE -->
+  <div class="dashboard-screen hidden" id="dashboardScreen">
+    <!-- Top Navigation Header -->
+    <header class="dash-navbar">
+      <div class="dash-brand">
+        <div class="logo-badge mini" title="Agricultural Sapling Logo">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 10a6 6 0 0 0-6-6H3v2a6 6 0 0 0 6 6h3" />
+            <path d="M12 14a6 6 0 0 1 6-6h3v2a6 6 0 0 1-6 6h-3" />
+            <path d="M12 22V8" />
+            <circle cx="12" cy="19" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="dash-brand-text">
+          <span class="dash-system-name">MINISTRY OF CONSUMER AFFAIRS, FOOD &amp; PUBLIC DISTRIBUTION, INDIA</span>
+          <h1 class="dash-portal-title">Crop Procurement Center Portal</h1>
+        </div>
+      </div>
+
+      <div class="dash-nav-actions">
+        <div class="dash-center-badge">
+          <span class="status-pulse"></span>
+          <span>Procurement Active (Kharif 2026-27)</span>
+        </div>
+
+        <!-- Regional Language Selector Pill matching Farmer Dashboard Theme -->
+        <div class="farmer-lang-pill" id="farmerLangPill" title="Select Regional Language / ప్రాంతీయ భాష">
+          <div class="farmer-lang-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#143525" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <div class="farmer-lang-info">
+            <span class="farmer-lang-label" id="farmerLangPillLabel">LANGUAGE / భాష</span>
+            <div class="farmer-lang-select-wrapper">
+              <select id="farmerLangSelect" class="farmer-lang-select-styled" aria-label="Select Regional Language">
+                <option value="en">English</option>
+                <option value="te">తెలుగు (Telugu)</option>
+                <option value="hi">हिन्दी (Hindi)</option>
+                <option value="ta">தமிழ் (Tamil)</option>
+                <option value="ml">മലയാളം (Malayalam)</option>
+              </select>
+              <span class="farmer-lang-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="farmer-profile-pill">
+          <div class="farmer-avatar">🌾</div>
+          <div class="farmer-info">
+            <span class="farmer-name" id="dashFarmerName">Rahul</span>
+            <span class="farmer-mobile" id="dashFarmerMobile">+91 98765 43210</span>
+          </div>
+        </div>
+
+        <!-- Notification Bell -->
+        <div class="notif-wrapper">
+          <button type="button" class="btn-notif" id="notifBtn" aria-label="Notifications" title="Procurement Alerts">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notif-badge zero">0</span>
+          </button>
+
+          <!-- Notification Dropdown -->
+          <div class="notif-dropdown hidden" id="notifDropdown">
+            <div class="notif-dropdown-header">
+              <span>Center Alerts &amp; Updates</span>
+              <span class="notif-count-tag">0 New</span>
+            </div>
+            <div class="notif-list">
+              <div class="notif-empty-state" style="padding: 24px 16px; text-align: center; color: #64746A; font-size: 13px;">
+                <p style="font-weight: 600; margin-bottom: 4px; color: #3E4B41;">No new notifications</p>
+                <p style="font-size: 12px; color: #7B8B7F; line-height: 1.4;">Live center alerts, form confirmations, and DBT settlements will appear here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-logout" id="logoutBtn" title="Logout from portal">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          <span>LOGOUT</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Container -->
+    <main class="dash-main-content">
+      <!-- Welcome Hero Banner -->
+      <section class="dash-hero-banner">
+        <div class="hero-left">
+          <span class="hero-badge">OFFICIAL FARMER DESK</span>
+          <h2 class="hero-title">Farmer Procurement Dashboard</h2>
+          <p class="hero-desc">Welcome to the integrated procurement &amp; MSP payment portal. Select any module below to schedule slots, register crop produce, track weighbridge tokens, or download direct DBT payment receipts.</p>
+        </div>
+      </section>
+
+      <!-- 6 Main Options Cards Grid -->
+      <section class="dash-modules-section">
+        <div class="section-header-row">
+          <h3 class="section-heading">Select Procurement Service</h3>
+          <span class="section-tag">6 SERVICES AVAILABLE</span>
+        </div>
+
+        <div class="modules-grid">
+          <!-- 1. PROCUREMENT SCHEDULE -->
+          <div class="module-card" data-module="schedule" id="cardSchedule" tabindex="0" role="button">
+            <div class="module-icon-wrap icon-gold">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div class="module-content">
+              <span class="module-number">01</span>
+              <h4 class="module-title">PROCUREMENT SCHEDULE</h4>
+              <p class="module-desc">View crop-wise MSP calendars, procurement operational schedules, daily intake quotas, and purchase limits.</p>
+            </div>
+            <div class="module-action">
+              <span>View Schedule</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
+
+          <!-- 2. FORM FILLING -->
+          <div class="module-card" data-module="form-filling" id="cardFormFilling" tabindex="0" role="button">
+            <div class="module-icon-wrap icon-green">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </div>
+            <div class="module-content">
+              <span class="module-number">02</span>
+              <h4 class="module-title">FORM FILLING</h4>
+              <p class="module-desc">Register new agricultural produce, enter harvest yield quintals, land survey numbers, and bank DBT details.</p>
+            </div>
+            <div class="module-action">
+              <span>Fill Crop Form</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
+
+          <!-- 3. PROCUREMENT CENTER & SLOT BOOKING -->
+          <div class="module-card" data-module="slot-booking" id="cardSlotBooking" tabindex="0" role="button">
+            <div class="module-icon-wrap icon-terracotta">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="module-content">
+              <span class="module-number">03</span>
+              <h4 class="module-title">PROCUREMENT CENTER & SLOT BOOKING</h4>
+              <p class="module-desc">Locate designated procurement centers, choose delivery date, reserve morning/evening time slots, and register transport vehicle.</p>
+            </div>
+            <div class="module-action">
+              <span>Book Slot</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
+
+          <!-- 4. TOKEN STATUS -->
+          <div class="module-card" data-module="token-status" id="cardTokenStatus" tabindex="0" role="button">
+            <div class="module-icon-wrap icon-blue">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="12" rx="2"/>
+                <circle cx="6" cy="12" r="1.5"/>
+                <line x1="10" y1="12" x2="18" y2="12"/>
+              </svg>
+            </div>
+            <div class="module-content">
+              <span class="module-number">04</span>
+              <h4 class="module-title">TOKEN STATUS</h4>
+              <p class="module-desc">Live tracker for queue position, weighbridge entry gate pass, QR code token, and estimated intake unloading time.</p>
+            </div>
+            <div class="module-action">
+              <span>Check Live Token</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
+
+          <!-- 5. FINALIZE PROCUREMENT & PAYMENT -->
+          <div class="module-card" data-module="finalize-procurement" id="cardFinalize" tabindex="0" role="button">
+            <div class="module-icon-wrap icon-olive">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <div class="module-content">
+              <span class="module-number">05</span>
+              <h4 class="module-title">FINALIZE PROCUREMENT & PAYMENT</h4>
+              <p class="module-desc">Verify electronic weighbridge gross/tare slips, moisture & quality assaying, approve calculated MSP amount, and authorize payment.</p>
+            </div>
+            <div class="module-action">
+              <span>Review & Approve</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
+
+          <!-- 6. PAYMENT & TRANSACTION HISTORY -->
+          <div class="module-card" data-module="payment-history" id="cardPaymentHistory" tabindex="0" role="button">
+            <div class="module-icon-wrap icon-gold-dark">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                <line x1="1" y1="10" x2="23" y2="10"/>
+              </svg>
+            </div>
+            <div class="module-content">
+              <span class="module-number">06</span>
+              <h4 class="module-title">TRANSACTION &amp; PAYMENT HISTORY</h4>
+              <p class="module-desc">Access Direct Benefit Transfer (DBT) bank logs, government payment voucher receipts, and transaction reference numbers.</p>
+            </div>
+            <div class="module-action">
+              <span>View Statements</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- DEDICATED PROCUREMENT CENTER OFFICER DASHBOARD INTERFACE -->
+  <div class="dashboard-screen hidden" id="officerDashboardScreen">
+    <!-- Top Navigation Header -->
+    <header class="dash-navbar">
+      <div class="dash-brand">
+        <div class="logo-badge mini" title="Agricultural Sapling Logo">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 10a6 6 0 0 0-6-6H3v2a6 6 0 0 0 6 6h3" />
+            <path d="M12 14a6 6 0 0 1 6-6h3v2a6 6 0 0 1-6 6h-3" />
+            <path d="M12 22V8" />
+            <circle cx="12" cy="19" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="dash-brand-text">
+          <span class="dash-system-name">MINISTRY OF CONSUMER AFFAIRS, FOOD &amp; PUBLIC DISTRIBUTION, INDIA</span>
+          <h1 class="dash-portal-title">Procurement Center Officer Portal</h1>
+        </div>
+      </div>
+
+      <div class="dash-nav-actions">
+        <div class="dash-center-badge">
+          <span class="status-pulse"></span>
+          <span>Center Active • Desk 03 (North Weighbridge Gate 2)</span>
+        </div>
+        <div class="farmer-profile-pill">
+          <div class="farmer-avatar">🏛️</div>
+          <div class="farmer-info">
+            <span class="farmer-name" id="officerProfileName">Inspector V. S. Deshmukh</span>
+            <span class="farmer-mobile" id="officerProfileId">OFFICER ID: OFF-8492</span>
+          </div>
+        </div>
+
+        <button type="button" class="btn-officer-action" onclick="window.switchToFarmerPortal();" style="padding: 7px 14px; font-size: 11.5px; background: rgba(223,195,150,0.18); color: #DFC396; font-weight: 700; border: 1px solid #DFC396; border-radius: 6px; cursor: pointer;" title="Switch to Farmer Portal">
+          <span>🌾 Farmer Portal</span>
+        </button>
+
+        <button type="button" class="btn-logout" id="officerLogoutBtn" title="Logout from Officer Portal">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          <span>LOGOUT</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Officer Dashboard Container -->
+    <main class="dash-main-content">
+      <!-- Officer Hero Banner -->
+      <section class="dash-hero-banner">
+        <div class="hero-left">
+          <span class="hero-badge">OFFICIAL INTAKE &amp; QUALITY ASSAYING DESK</span>
+          <h2 class="hero-title">Procurement Center Officer Inspection Desk</h2>
+          <p class="hero-desc">Real-time incoming farmer crop intake inspection, electronic weighbridge gross/tare certification, moisture grading, and Direct Benefit Transfer (DBT) payment approvals for <strong>STATE AGRICULTURAL COOPERATIVE CENTER (VILLAGE ABC)</strong>.</p>
+        </div>
+      </section>
+
+      <!-- Officer Workspace Navigation Tabs -->
+      <div class="officer-tabs-nav" role="tablist" aria-label="Officer Workspace Navigation Tabs">
+        <button type="button" class="officer-tab-btn active" id="officerTabHistoryBtn" onclick="window.switchOfficerDeskTab('history')" role="tab" aria-selected="true">
+          <span class="officer-tab-icon">📜</span>
+          <div class="officer-tab-content">
+            <span class="officer-tab-title">PROCUREMENT HISTORY</span>
+            <span class="officer-tab-subtitle">Consolidated DBT Ledger &amp; Audits</span>
+          </div>
+          <span class="officer-tab-counter" id="officerHistoryTabCounter">4 Settled</span>
+        </button>
+
+        <button type="button" class="officer-tab-btn" id="officerTabIntakeBtn" onclick="window.switchOfficerDeskTab('intake')" role="tab" aria-selected="false">
+          <span class="officer-tab-icon">⚡</span>
+          <div class="officer-tab-content">
+            <span class="officer-tab-title">WEIGHBRIDGE &amp; INTAKE DESK</span>
+            <span class="officer-tab-subtitle">Gate 2 Consignments &amp; Assaying</span>
+          </div>
+          <span class="officer-tab-badge-live" id="officerLiveIntakeBadge">Standby</span>
+        </button>
+      </div>
+
+      <!-- 1. DEDICATED OFFICER PROCUREMENT HISTORY VIEW (ACTIVE & DISPLAYED BY DEFAULT ON LOGIN) -->
+      <section class="dash-modules-section" id="officerHistoryView">
+        <div class="section-header-row">
+          <div>
+            <h3 class="section-heading" style="display: flex; align-items: center; gap: 10px;">
+              <span>📜 PROCUREMENT HISTORY</span>
+              <span class="badge-tag" style="background: #143525; color: #DFC396; font-size: 11px; padding: 3px 8px;">ALL FARMER SETTLEMENTS</span>
+            </h3>
+            <p style="font-size: 13px; color: #6A7B6E; margin-top: 4px;">
+              Complete consolidated procurement audit log recording all consignments and Direct Benefit Transfers (DBT) finalized from the Farmer Dashboard and Center Desk.
+            </p>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <span class="section-tag" id="officerHistoryCountTag">4 TOTAL SETTLED RECORDS</span>
+            <button type="button" class="btn-officer-action" onclick="window.runOfficerDemoOperation();" style="padding: 8px 16px; font-size: 12.5px; background: #DFC396; color: #143525; font-weight: 800; border: none; box-shadow: 0 4px 12px rgba(223,195,150,0.35);" title="Load demo consignment and inspect certification &amp; DBT locks">
+              <span>⚡ Perform Demo Consignment</span>
+            </button>
+            <button type="button" class="btn-officer-action" onclick="window.switchOfficerDeskTab('intake');" style="padding: 8px 14px; font-size: 12px; background: #143525; color: #DFC396; border: 1px solid #DFC396;">
+              <span>🔍 Open Live Intake Desk</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Statistics Row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 16px 0;">
+          <div style="background: #FFFFFF; border: 1.5px solid #DFC396; border-radius: 10px; padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 4px 12px rgba(20,53,37,0.05);">
+            <span style="font-size: 11px; font-weight: 700; color: #7B8B7F; text-transform: uppercase;">Total Consignments</span>
+            <strong style="font-size: 20px; color: #143525;" id="histStatCount">4 Consignments</strong>
+          </div>
+          <div style="background: #FFFFFF; border: 1.5px solid #DFC396; border-radius: 10px; padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 4px 12px rgba(20,53,37,0.05);">
+            <span style="font-size: 11px; font-weight: 700; color: #7B8B7F; text-transform: uppercase;">Total Weight Procured</span>
+            <strong style="font-size: 20px; color: #143525;" id="histStatWeight">107.00 Quintals</strong>
+          </div>
+          <div style="background: #FFFFFF; border: 1.5px solid #DFC396; border-radius: 10px; padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 4px 12px rgba(20,53,37,0.05);">
+            <span style="font-size: 11px; font-weight: 700; color: #7B8B7F; text-transform: uppercase;">Total DBT Disbursed</span>
+            <strong style="font-size: 20px; color: #1E824C;" id="histStatAmount">₹ 3,43,320.00</strong>
+          </div>
+        </div>
+
+        <!-- Quick Filter / Search Bar -->
+        <div class="officer-search-box">
+          <span style="font-size: 15px;">🔍</span>
+          <input type="text" id="officerHistorySearchInput" class="officer-search-input" placeholder="Search procurement ledger by Farmer name, Token # (e.g. #TK-8492), Crop produce, Survey #, or UTR..." />
+          <button type="button" id="officerHistoryClearSearchBtn" style="background: none; border: none; font-size: 11px; font-weight: 700; color: #7B8B7F; cursor: pointer;">CLEAR</button>
+        </div>
+
+        <!-- Complete Procurement History Table -->
+        <div class="detail-table-wrap">
+          <table class="detail-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Token #</th>
+                <th>Beneficiary Farmer</th>
+                <th>Survey #</th>
+                <th>Crop Produce</th>
+                <th>Net Weight</th>
+                <th>DBT Amount</th>
+                <th>Transaction / UTR No.</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="officerHistoryTableBody">
+              <tr>
+                <td>Today, 03-Sep-2026</td>
+                <td><strong><code>#TK-8488</code></strong></td>
+                <td><strong>Suresh Patel (Village ABC)</strong></td>
+                <td><code>Survey #310/2B</code></td>
+                <td><strong>Paddy / Rice</strong></td>
+                <td><strong style="color: #143525;">40.00 Qtl</strong></td>
+                <td><strong style="color: #1E824C;">₹ 87,320.00</strong></td>
+                <td><code>GOV-DBT-984210</code></td>
+                <td><span class="badge-tag badge-success">✓ Completed &amp; DBT Settled</span></td>
+                <td><button type="button" class="btn-modal-back" onclick="window.openReceiptModal('GOV-DBT-984210');" style="padding: 3px 8px; font-size: 11px;">Voucher 📄</button></td>
+              </tr>
+              <tr>
+                <td>Today, 03-Sep-2026</td>
+                <td><strong><code>#TK-8489</code></strong></td>
+                <td><strong>Ramesh Rao (Village ABC)</strong></td>
+                <td><code>Survey #118/1A</code></td>
+                <td><strong>Mustard</strong></td>
+                <td><strong style="color: #143525;">22.00 Qtl</strong></td>
+                <td><strong style="color: #1E824C;">₹ 1,24,300.00</strong></td>
+                <td><code>GOV-DBT-719403</code></td>
+                <td><span class="badge-tag badge-success">✓ Completed &amp; DBT Settled</span></td>
+                <td><button type="button" class="btn-modal-back" onclick="window.openReceiptModal('GOV-DBT-719403');" style="padding: 3px 8px; font-size: 11px;">Voucher 📄</button></td>
+              </tr>
+              <tr>
+                <td>Today, 03-Sep-2026</td>
+                <td><strong><code>#TK-8490</code></strong></td>
+                <td><strong>Kavita Devi (Village ABC)</strong></td>
+                <td><code>Survey #204/C</code></td>
+                <td><strong>Soybean</strong></td>
+                <td><strong style="color: #143525;">15.00 Qtl</strong></td>
+                <td><strong style="color: #1E824C;">₹ 69,000.00</strong></td>
+                <td><code>GOV-DBT-440192</code></td>
+                <td><span class="badge-tag badge-success">✓ Completed &amp; DBT Settled</span></td>
+                <td><button type="button" class="btn-modal-back" onclick="window.openReceiptModal('GOV-DBT-440192');" style="padding: 3px 8px; font-size: 11px;">Voucher 📄</button></td>
+              </tr>
+              <tr>
+                <td>Today, 03-Sep-2026</td>
+                <td><strong><code>#TK-8491</code></strong></td>
+                <td><strong>Anil Kumar (Village ABC)</strong></td>
+                <td><code>Survey #55/3</code></td>
+                <td><strong>Maize</strong></td>
+                <td><strong style="color: #143525;">30.00 Qtl</strong></td>
+                <td><strong style="color: #1E824C;">₹ 62,700.00</strong></td>
+                <td><code>GOV-DBT-319802</code></td>
+                <td><span class="badge-tag badge-success">✓ Completed &amp; DBT Settled</span></td>
+                <td><button type="button" class="btn-modal-back" onclick="window.openReceiptModal('GOV-DBT-319802');" style="padding: 3px 8px; font-size: 11px;">Voucher 📄</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Center Intake Queue Table -->
+        <div class="section-header-row" style="margin-top: 36px; border-top: 1.5px solid #EAE1D2; padding-top: 24px;">
+          <div>
+            <h3 class="section-heading">Today's Procurement Center Queue</h3>
+            <p style="font-size: 13px; color: #6A7B6E; margin-top: 4px;">All scheduled and completed consignments at Center Intake Gates.</p>
+          </div>
+          <span class="section-tag" id="officerQueueCountTag">4 CONSIGNMENTS IN TODAY'S QUEUE</span>
+        </div>
+
+        <div class="detail-table-wrap">
+          <table class="detail-table">
+            <thead>
+              <tr>
+                <th>Token #</th>
+                <th>Farmer Name</th>
+                <th>Crop Produce</th>
+                <th>Verified Weight</th>
+                <th>Weighbridge</th>
+                <th>Status / DBT Payment</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="officerQueueTableBody">
+              <tr>
+                <td><strong><code>#TK-8488</code></strong></td>
+                <td><strong>Suresh Patel (Village ABC)</strong></td>
+                <td>Paddy / Rice</td>
+                <td>40.00 Qtl</td>
+                <td>Gate 1</td>
+                <td><span class="badge-tag badge-success">✓ Completed &amp; DBT Settled (₹ 87,320.00)</span></td>
+                <td><button type="button" class="btn-modal-back" onclick="window.openReceiptModal('GOV-DBT-984210');" style="padding: 3px 8px; font-size: 11px;">Voucher 📄</button></td>
+              </tr>
+              <tr>
+                <td><strong><code>#TK-8489</code></strong></td>
+                <td><strong>Ramesh Rao (Village ABC)</strong></td>
+                <td>Mustard</td>
+                <td>22.00 Qtl</td>
+                <td>Gate 2</td>
+                <td><span class="badge-tag badge-success">✓ Completed &amp; DBT Settled (₹ 1,24,300.00)</span></td>
+                <td><button type="button" class="btn-modal-back" onclick="window.openReceiptModal('GOV-DBT-719403');" style="padding: 3px 8px; font-size: 11px;">Voucher 📄</button></td>
+              </tr>
+              <tr>
+                <td><strong><code>#TK-8490</code></strong></td>
+                <td><strong>Kavita Devi (Village ABC)</strong></td>
+                <td>Soybean</td>
+                <td>15.00 Qtl</td>
+                <td>Gate 1</td>
+                <td><span class="badge-tag badge-success">✓ Completed &amp; DBT Settled (₹ 69,000.00)</span></td>
+                <td><button type="button" class="btn-modal-back" onclick="window.openReceiptModal('GOV-DBT-440192');" style="padding: 3px 8px; font-size: 11px;">Voucher 📄</button></td>
+              </tr>
+              <tr>
+                <td><strong><code>#TK-8491</code></strong></td>
+                <td><strong>Anil Kumar (Village ABC)</strong></td>
+                <td>Maize</td>
+                <td>30.00 Qtl</td>
+                <td>Gate 2</td>
+                <td><span class="badge-tag badge-success">✓ Completed &amp; DBT Settled (₹ 62,700.00)</span></td>
+                <td><button type="button" class="btn-modal-back" onclick="window.openReceiptModal('GOV-DBT-319802');" style="padding: 3px 8px; font-size: 11px;">Voucher 📄</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 2. OFFICER LIVE WEIGHBRIDGE & INTAKE DESK VIEW -->
+      <section class="dash-modules-section hidden" id="officerIntakeView">
+        <!-- Demo Procurement Operation Simulation Bar -->
+        <div style="background: linear-gradient(135deg, #143525 0%, #0F281C 100%); border: 1.5px solid #DFC396; border-radius: 14px; padding: 18px 24px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; box-shadow: 0 4px 16px rgba(20,53,37,0.12);">
+          <div style="flex: 1; min-width: 260px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+              <span style="font-size: 11px; font-weight: 800; background: #DFC396; color: #143525; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.06em;">⚡ DEMO OPERATION SIMULATOR</span>
+              <span style="color: #DFC396; font-size: 12px; font-weight: 600;">Officer Evaluation Desk</span>
+            </div>
+            <p style="color: #E2ECE5; font-size: 13px; margin: 0; line-height: 1.45;">
+              Run a live simulation of incoming farmer consignment intake, electronic weighbridge gross certification, moisture assaying grading, and Direct Benefit Transfer (DBT) payment release.
+            </p>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn-officer-action" onclick="window.runOfficerDemoOperation();" style="background: #DFC396; color: #143525; font-weight: 800; border: none; box-shadow: 0 4px 12px rgba(223,195,150,0.3);">
+              <span>⚡ Run Demo Procurement Operation</span>
+            </button>
+            <button type="button" class="btn-officer-action" onclick="window.resetOfficerDemo();" style="background: rgba(255,255,255,0.12); color: #FFFFFF; border: 1px solid rgba(223,195,150,0.4);">
+              <span>🔄 Reset Desk</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="section-header-row">
+          <h3 class="section-heading">Current Farmer Procurement Details</h3>
+          <span class="section-tag" id="officerGateTag" style="background: #143525; color: #DFC396; border: 1px solid #DFC396;">LIVE AT WEIGHBRIDGE GATE 2</span>
+        </div>
+
+        <!-- No Active Token Card (Displayed when no token or timer in progress) -->
+        <div id="officerNoActiveTokenCard" style="background: #FAF7F2; border: 1.5px dashed #DFC396; border-radius: 14px; padding: 36px 20px; text-align: center; margin: 14px 0;">
+          <div style="font-size: 38px; margin-bottom: 12px;">🎟️</div>
+          <h3 style="font-size: 16.5px; font-weight: 800; color: #143525; letter-spacing: 0.04em; margin-bottom: 8px;">
+            NO ACTIVE TOKENS AT WEIGHBRIDGE GATE
+          </h3>
+          <p style="font-size: 13px; color: #5A6A5E; line-height: 1.55; max-width: 480px; margin: 0 auto;">
+            There are currently no active farmer consignments at Weighbridge Gate 2. Once a farmer completes crop registration, books a center slot, and their 15-second token queue countdown completes in the farmer portal, their live weighbridge and DBT details will be dispatched here for officer certification.
+          </p>
+          <div style="margin-top: 20px;">
+            <button type="button" class="btn-officer-action btn-dbt" onclick="window.runOfficerDemoOperation();" style="margin: 0 auto; padding: 10px 20px; font-size: 13px;">
+              <span>⚡ Load Demo Consignment (#TK-8492)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Detailed Farmer Intake Card (Displayed when token is active & timer completed) -->
+        <div class="officer-detail-card hidden" id="officerActiveConsignmentCard">
+          <div class="officer-card-header" style="position: relative; overflow: visible;">
+            <div class="officer-header-left">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
+                <span class="officer-token-badge" id="officerActiveTokenBadge">ACTIVE TOKEN: #TK-8492</span>
+                <!-- Official Rubber Stamp Certified Tag on Token -->
+                <div class="active-token-stamp hidden" id="activeTokenCertifiedStamp" title="Digitally Certified Quality Assaying Stamp">
+                  <div class="stamp-inner">
+                    <span class="stamp-text">✓ ASSAYING CERTIFIED</span>
+                    <span class="stamp-subtext">INSP. V. S. DESHMUKH</span>
+                  </div>
+                </div>
+              </div>
+              <h4 class="officer-farmer-title" id="officerFarmerHeading">Farmer: Rahul (Village ABC)</h4>
+            </div>
+            <div class="officer-header-right" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <!-- Large Rubber Seal Stamp on Consignment Card -->
+              <div class="large-official-stamp-seal hidden" id="largeOfficialStampSeal">
+                <div class="seal-border">
+                  <span class="seal-header">GOVT QUALITY ASSAYING</span>
+                  <span class="seal-main">✓ CERTIFIED STAMP</span>
+                  <span class="seal-token-id" id="stampSealTokenNumber">#TK-8492</span>
+                  <span class="seal-footer">MOISTURE &amp; GRADE APPROVED</span>
+                </div>
+              </div>
+
+              <span class="badge-tag badge-success">✓ Gate Verified</span>
+              <span class="badge-tag badge-pending" id="officerAssayingBadge">Assaying in Progress</span>
+            </div>
+          </div>
+
+          <div class="officer-details-grid">
+            <div class="officer-cell">
+              <span class="officer-label">Beneficiary Farmer</span>
+              <strong class="officer-val" id="offFarmerName">Rahul</strong>
+            </div>
+            <div class="officer-cell">
+              <span class="officer-label">Registered Mobile</span>
+              <strong class="officer-val" id="offFarmerMobile">+91 98765 43210</strong>
+            </div>
+            <div class="officer-cell">
+              <span class="officer-label">Land Survey &amp; Village</span>
+              <strong class="officer-val" id="offSurveyCell">Village ABC (Survey #402/1A)</strong>
+            </div>
+            <div class="officer-cell">
+              <span class="officer-label">Agricultural Produce / Crop</span>
+              <strong class="officer-val" id="offCropName">Wheat</strong>
+            </div>
+            <div class="officer-cell">
+              <span class="officer-label">Expected Crop Weight</span>
+              <strong class="officer-val" id="offExpectedWeight">50.00 Quintals</strong>
+            </div>
+            <div class="officer-cell">
+              <span class="officer-label">Weighbridge Gross Verified</span>
+              <strong class="officer-val" id="offActualWeight" style="color: #143525;">48.00 Quintals (≤ Expected)</strong>
+            </div>
+            <div class="officer-cell">
+              <span class="officer-label">Moisture Assaying Content</span>
+              <strong class="officer-val" style="color: #1E824C;">10.8% (FAQ Standard ≤ 12.0%)</strong>
+            </div>
+            <div class="officer-cell">
+              <span class="officer-label">Quality Certification Grade</span>
+              <strong class="officer-val" style="color: #1E824C;">Grade FAQ (Fair Average Quality)</strong>
+            </div>
+            <div class="officer-cell">
+              <span class="officer-label">Government MSP Rate</span>
+              <strong class="officer-val" id="offMspRate">₹ 2,275.00 per Quintal</strong>
+            </div>
+            <div class="officer-cell" style="background: #FAF3E6; border: 1.5px solid #DFC396; border-radius: 8px; padding: 8px 12px;">
+              <span class="officer-label" style="color: #143525; font-weight: 700;">Total Approved DBT Settlement</span>
+              <strong class="officer-val" id="offTotalAmount" style="font-size: 16px; color: #143525;">₹ 1,09,200.00</strong>
+            </div>
+            <div class="officer-cell" style="background: #E8F7EE; border: 1.5px solid #27AE60; border-radius: 8px; padding: 8px 12px;">
+              <span class="officer-label" style="color: #143525; font-weight: 700;">Farmer Bank DBT Account</span>
+              <strong class="officer-val" id="offBankDetails" style="color: #0E6251; font-weight: 800;">A/C 181166 (IFSC: SBIN0001234)</strong>
+            </div>
+            <div class="officer-cell">
+              <span class="officer-label">Assigned Weighbridge Gate</span>
+              <strong class="officer-val">Gate 2 (North Intake Conveyor)</strong>
+            </div>
+          </div>
+
+          <!-- Officer Actions Bar -->
+          <div class="officer-action-bar">
+            <button type="button" class="btn-officer-action btn-certify" id="btnCertifyAssaying" onclick="window.officerCertifyAssaying();" title="Click to Approve &amp; Certify Quality Grade FAQ and Moisture Standard">
+              <span>✓ 1. Approve &amp; Certify Assaying Report</span>
+            </button>
+            <button type="button" class="btn-officer-action btn-dbt btn-disabled" id="btnOfficerReleaseDbt" data-locked="true" onclick="if(this.getAttribute('data-locked')==='true'){ window.officerReleaseDbt(event); return false; } else { window.officerReleaseDbt(event); }" title="⚠️ Locked: Please click '✓ 1. Approve &amp; Certify Assaying Report' first before releasing DBT payment">
+              <span>🔒 2. Finalize &amp; Authorize DBT (Locked - Approve &amp; Certify First)</span>
+            </button>
+            <button type="button" class="btn-officer-action btn-print" onclick="window.print();">
+              <span>📄 Print Consignment Slip</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- DASHBOARD DETAIL INTERACTIVE MODAL -->
+  <div class="modal-backdrop hidden" id="dashDetailModal" role="dialog" aria-modal="true" aria-labelledby="dashModalTitle">
+    <div class="modal-card dash-detail-card">
+      <button type="button" class="modal-close" id="closeDashModalBtn" aria-label="Close modal">×</button>
+      
+      <div class="modal-header">
+        <span class="dash-modal-tag" id="dashModalCategory">PROCUREMENT SERVICE</span>
+        <h3 id="dashModalTitle" class="modal-title">Service Details</h3>
+      </div>
+
+      <div class="dash-modal-body" id="dashModalBody">
+        <!-- Injected dynamically based on clicked option -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Government DBT Payment Voucher / Receipt Modal -->
+  <div class="modal-backdrop hidden" id="receiptModal" role="dialog" aria-modal="true" aria-labelledby="receiptTitle">
+    <div class="modal-card receipt-card">
+      <button type="button" class="modal-close" id="closeReceiptBtn" aria-label="Close receipt modal">×</button>
+      <div id="receiptModalBody">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Registration Modal for Farmer Enrollment -->
+  <div class="modal-backdrop hidden" id="registerModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button type="button" class="modal-close" id="closeRegisterBtn" aria-label="Close modal">×</button>
+      
+      <div class="modal-header">
+        <h3 id="modalTitle" class="modal-title">New Farmer Registration</h3>
+      </div>
+
+      <form id="registerForm" class="modal-form">
+        <div class="modal-form-grid single-col">
+          <div class="modal-input-group full-width">
+            <label for="regFullName">Full Name</label>
+            <input type="text" id="regFullName" name="regFullName" placeholder="Enter full name" required autocomplete="name">
+          </div>
+          <div class="modal-input-group full-width">
+            <label for="regMobile">Mobile Number</label>
+            <input type="tel" id="regMobile" name="regMobile" placeholder="Enter mobile number" required autocomplete="tel" maxlength="15">
+          </div>
+          <div class="modal-input-group full-width">
+            <label for="regPassword">Create Password</label>
+            <input type="password" id="regPassword" name="regPassword" placeholder="Create a password" required minlength="4" autocomplete="new-password">
+          </div>
+        </div>
+
+        <button type="submit" class="modal-submit-btn">
+          <span>Register</span>
+          <span>→</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Persistent Fast Role Switcher Dock with Active Skin Synchronization (Only visible in Farmer & Officer Dashboards) -->
+  <aside id="quickPortalDock" class="quick-portal-dock hidden" aria-label="Portal Navigation Dock">
+    <span class="quick-dock-label">QUICK SWITCH:</span>
+    <button type="button" id="quickSwitchFarmerBtn" class="quick-dock-btn active" onclick="window.switchToFarmerPortal();" title="Switch to Farmer Portal Dashboard">
+      <span>🌾</span><span>Farmer Portal</span>
+      <span class="quick-dock-indicator" aria-hidden="true"></span>
+    </button>
+    <button type="button" id="quickSwitchOfficerBtn" class="quick-dock-btn" onclick="window.switchToOfficerPortal();" title="Switch to Officer Inspection Desk &amp; Demo Consignments">
+      <span>🏛️</span><span>Officer Desk &amp; Demo</span>
+      <span class="quick-dock-indicator" aria-hidden="true"></span>
+    </button>
+  </aside>
+
+  <script src="app.js?v=20260904_11"></script>
+</body>
+</html>
