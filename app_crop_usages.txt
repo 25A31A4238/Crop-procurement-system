@@ -1,0 +1,64 @@
+48: // --- Constants & MSP Registry ---
+49: const CROP_MSP_RATES = {
+50: 'Wheat': 2275,
+101: const reason = passData.reason || 'MSP rate / valuation below farmer expectation';
+185: heroDesc: "Welcome to the integrated procurement & MSP payment portal. Select any module below to schedule slots, register crop produce, track weighbridge tokens, or download direct DBT payment receipts.",
+189: mod1Desc: "View crop-wise MSP calendars, procurement operational schedules, daily intake quotas, and purchase limits.",
+215: heroDesc: "సమీకృత పంట సేకరణ & కనీస మద్దతు ధర (MSP) చెల్లింపు పోర్టల్‌కు స్వాగతం. స్లాట్‌లను బుక్ చేసుకోవడానికి, పంటను నమోదు చేయడానికి, తూకం టోకెన్‌లను ట్రాక్ చేయడానికి లేదా DBT రసీదులను డౌన్‌లోడ్ చేయడానికి క్రింది సేవను ఎంచుకోండి.",
+219: mod1Desc: "పంటల వారీగా MSP క్యాలెండర్లు, కొనుగోలు షెడ్యూల్‌లు, రోజువారీ కోటాలు మరియు కొనుగోలు పరిమితులను చూడండి.",
+275: heroDesc: "ஒருங்கிணைந்த கொள்முதல் மற்றும் குறைந்தபட்ச ஆதரவு விலை (MSP) போர்ட்டலுக்கு வரவேற்கிறோம். ஸ்லாட்டுகளை முன்பதிவு செய்ய, பயிரை பதிவு செய்ய, எடை மேடை டோக்கன்களை கண்காணிக்க அல்லது DBT ரசீதுகளைப் பெற கீழே உள்ள சேவையைத் தேர்ந்தெடுக்கவும்.",
+279: mod1Desc: "பயிர்வாரியான MSP காலண்டர், செயல்பாட்டு அட்டவணை மற்றும் கொள்முதல் வரம்புகளைப் பார்க்கவும்.",
+305: heroDesc: "സംയോജിത സംഭരണ, താങ്ങുവില (MSP) പോർട്ടലിലേക്ക് സ്വാഗതം. സ്ലോട്ട് ബുക്ക് ചെയ്യാനും വിള രജിസ്റ്റർ ചെയ്യാനും വെയ്ബ്രിഡ്ജ് ടോക്കണുകൾ ട്രാക്ക് ചെയ്യാനും ഡിബിടി രസീതുകൾ ഡൗൺലോഡ് ചെയ്യാനും താഴെയുള്ള സേവനം തിരഞ്ഞെടുക്കുക.",
+1110: <!-- 3. Government MSP Crop Procurement Calendar & Intake Matrix -->
+1112: <span>📋 OFFICIAL MSP PROCUREMENT SCHEDULE &amp; OPERATIONAL CALENDAR</span>
+1119: <th>Govt. MSP (₹/Qtl)</th>
+1140: <div style="font-size: 10.5px; color: #1E824C; font-weight: 600;">+ ₹117 MSP Increase</div>
+1168: <div style="font-size: 10.5px; color: #1E824C; font-weight: 600;">+ ₹501 MSP Increase</div>
+1196: <div style="font-size: 10.5px; color: #1E824C; font-weight: 600;">+ ₹135 MSP Increase</div>
+1224: <div style="font-size: 10.5px; color: #1E824C; font-weight: 600;">+ ₹406 MSP Increase</div>
+1252: <div style="font-size: 10.5px; color: #1E824C; font-weight: 600;">+ ₹444 MSP Increase</div>
+1282: <p class="step-desc">Verify MSP prices, active intake dates, and daily center quotas.</p>
+1515: <option value="Wheat" ${currentSavedCrop === 'Wheat' ? 'selected' : ''}>Wheat - MSP ₹2,275/Qtl</option>
+1516: <option value="Paddy / Rice" ${currentSavedCrop === 'Paddy / Rice' ? 'selected' : ''}>Paddy / Rice - MSP ₹2,183/Qtl</option>
+1517: <option value="Mustard" ${currentSavedCrop === 'Mustard' ? 'selected' : ''}>Mustard - MSP ₹5,650/Qtl</option>
+1518: <option value="Soybean" ${currentSavedCrop === 'Soybean' ? 'selected' : ''}>Soybean - MSP ₹4,600/Qtl</option>
+1519: <option value="Cotton" ${currentSavedCrop === 'Cotton' ? 'selected' : ''}>Cotton - MSP ₹7,020/Qtl</option>
+1520: <option value="Gram / Chana" ${currentSavedCrop === 'Gram / Chana' ? 'selected' : ''}>Gram / Chana - MSP ₹5,440/Qtl</option>
+1521: <option value="Maize" ${currentSavedCrop === 'Maize' ? 'selected' : ''}>Maize - MSP ₹2,090/Qtl</option>
+1580: const submittedCropLabel = localStorage.getItem('cpc_submitted_crop');
+1583: if (!submittedCropLabel || !submittedQtyVal) {
+1604: <p style="font-size: 13.5px; font-weight: 700; color: #143525; margin-top: 2px;">${submittedCropLabel} • ${submittedQtyVal} Quintals</p>
+1890: const submittedCrop = localStorage.getItem('cpc_submitted_crop') || 'Wheat';
+1897: const mspPerQtl = CROP_MSP_RATES[submittedCrop] || 2275;
+1898: const totalApprovedAmount = actualWeightVal * mspPerQtl;
+1902: const formattedMsp = '₹ ' + mspPerQtl.toLocaleString('en-IN') + ' per Quintal';
+1918: <td><strong>${submittedCrop}</strong></td>
+1933: <td><strong>Government MSP Rate</strong></td>
+1978: <h4 class="decline-price-title">Not satisfied with the evaluated MSP price or net payable amount?</h4>
+1980: Under statutory cooperative procurement regulations, you are not obligated to sell if the assessed moisture deductions, weighbridge weight (<strong>${formattedActual}</strong>), or net MSP valuation (<strong>${formattedTotal}</strong>) do not meet your expectations. You have the full right to decline this offer without penalty and withdraw your produce with an official Exit Gate Pass.
+2086: Official direct government MSP subsidy & procurement bank settlement statements for <strong>${registeredFarmer.name || 'Rahul'}</strong>:
+2412: const submittedCrop = localStorage.getItem('cpc_submitted_crop') || 'Wheat';
+2444: crop: `${submittedCrop} (${actualWeightVal} Qtl)`,
+2510: if (dashModalTitle) dashModalTitle.textContent = 'DECLINE MSP VALUATION & WITHDRAW PRODUCE';
+2512: const submittedCrop = localStorage.getItem('cpc_submitted_crop') || 'Wheat';
+2516: const mspPerQtl = CROP_MSP_RATES[submittedCrop] || 2275;
+2517: const totalApprovedAmount = actualWeightVal * mspPerQtl;
+2519: const formattedMsp = '₹ ' + mspPerQtl.toLocaleString('en-IN') + ' per Quintal';
+2528: DECLINE THIS MSP PROCUREMENT OFFER?
+2531: You are currently reviewing the evaluated valuation for <strong>${submittedCrop} (${formattedActual})</strong> with net DBT payout of <strong>${formattedTotal}</strong> at <strong>${formattedMsp}</strong>.
+2551: <input type="radio" name="declineReasonChoice" value="MSP valuation or total payout is below market expectations" checked>
+2552: <span>MSP valuation / total payout is below my price expectations</span>
+2583: const selectedReason = selectedReasonRadio ? selectedReasonRadio.value : 'MSP valuation below farmer expectations';
+2585: const submittedCrop = localStorage.getItem('cpc_submitted_crop') || 'Wheat';
+2590: const mspPerQtl = CROP_MSP_RATES[submittedCrop] || 2275;
+2591: const totalApprovedAmount = actualWeightVal * mspPerQtl;
+2606: crop: `${submittedCrop} (${formattedActual})`,
+2642: addNotificationAlert('❌ Produce Withdrawn (Price Declined)', `Exit Gate Pass ${gatePassId} issued for ${submittedCrop}. Registration form unlocked.`, 'finalize-procurement');
+2984: function renderOfficerQueue(hasActiveConsignment, formattedActual, submittedCrop) {
+2998: <td><strong>${submittedCrop}</strong></td>
+3055: const submittedCrop = localStorage.getItem('cpc_submitted_crop') || 'Wheat';
+3092: const mspPerQtl = CROP_MSP_RATES[submittedCrop] || 2275;
+3093: const totalApprovedAmount = actualWeightVal * mspPerQtl;
+3096: const formattedMsp = '₹ ' + mspPerQtl.toLocaleString('en-IN') + ' per Quintal';
+3121: if (offCropName) offCropName.textContent = submittedCrop;
+3208: renderOfficerQueue(hasActiveConsignment, formattedActual, submittedCrop);

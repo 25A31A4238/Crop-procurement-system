@@ -1,0 +1,98 @@
+class CacpMspStoreManager {
+    constructor() {
+      this.rawBaseline = CACP_OFFICIAL_RAW_DATA;
+      this.data = this.loadStoredData();
+      this.lastSyncTime = localStorage.getItem('cpc_cacp_last_sync') || 'Today, 08:15 PM • Verified CACP da.gov.in';
+      this.currentTab = 'matrix';
+      this.currentSearch = '';
+    }
+
+    loadStoredData() {
+      try {
+        const stored = localStorage.getItem('cpc_cacp_msp_dataset');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {
+        console.warn('Could not parse stored CACP dataset:', e);
+      }
+      return JSON.parse(JSON.stringify(this.rawBaseline));
+    }
+
+    saveData() {
+      try {
+        localStorage.setItem('cpc_cacp_msp_dataset', JSON.stringify(this.data));
+      } catch (e) {
+        console.warn('Could not save CACP dataset to localStorage:', e);
+      }
+    }
+
+    getAll() {
+      return this.data;
+    }
+
+    getBySeason(season) {
+      if (!season || season === 'all' || season === 'matrix') return this.data;
+      if (season === 'kharif') return this.data.filter(c => c.season === 'Kharif Crops');
+      if (season === 'rabi') return this.data.filter(c => c.season === 'Rabi Crops');
+      if (season === 'commercial') return this.data.filter(c => c.season === 'Commercial Crops');
+      return this.data;
+    }
+
+    findCrop(query) {
+      if (!query) return null;
+      const q = query.toLowerCase().trim();
+      return this.data.find(c => {
+        const name = c.commodity.toLowerCase();
+        if (name === q) return true;
+        if (q.includes('paddy') && name.includes('paddy')) return true;
+        if (q.includes('wheat') && name.includes('wheat')) return true;
+        if (q.includes('cotton') && name.includes('cotton')) return true;
+        if ((q.includes('mustard') || q.includes('rapeseed')) && name.includes('mustard')) return true;
+        if (q.includes('soy') && name.includes('soya')) return true;
+        if (q.includes('gram') && (name.includes('gram') || name.includes('chana'))) return true;
+        if (q.includes('maize') && name.includes('maize')) return true;
+        if (q.includes('groundnut') && name.includes('groundnut')) return true;
+        if (q.includes('ragi') && name.includes('ragi')) return true;
+        if (q.includes('moong') && name.includes('moong')) return true;
+        if (q.includes('urad') && name.includes('urad')) return true;
+        if (q.includes('tur') && name.includes('tur')) return true;
+        if (q.includes('jute') && name.includes('jute')) return true;
+        if (q.includes('sugarcane') && name.includes('sugarcane')) return true;
+        return name.includes(q) || q.includes(name);
+      });
+    }
+
+    getMspForCrop(cropName) {
+      const item = this.findCrop(cropName);
+      if (!item) return 2275;
+      const yrs = item.years || {};
+      const yr2026 = yrs['2026'] || yrs[2026];
+      const yr2025 = yrs['2025'] || yrs[2025];
+      const yr2024 = yrs['2024'] || yrs[2024];
+
+      if (yr2026 && yr2026.fixed && yr2026.fixed !== '-') return parseInt(yr2026.fixed, 10);
+      if (yr2025 && yr2025.fixed && yr2025.fixed !== '-') return parseInt(yr2025.fixed, 10);
+      if (yr2024 && yr2024.fixed && yr2024.fixed !== '-') return parseInt(yr2024.fixed, 10);
+      return 2275;
+    }
+
+    getLatestMspDetails(item) {
+      const yrs = item.years || {};
+      const y26 = yrs['2026'] || yrs[2026];
+      const y25 = yrs['2025'] || yrs[2025];
+      const y24 = yrs['2024'] || yrs[2024];
+      const y23 = yrs['2023'] || yrs[2023];
+
+      let curFixed = '-';
+      let curReco = '-';
+      let curYear = '2026-27';
+      let prevFixed = '-';
+
+      if (y26 && y26.fixed && y26.fixed !== '-') {
+        curFixed = parseInt(y26.fixed, 10);
+        curReco = y26.reco || y26.fixed;
+        curYear = '2026-27';
+        if (y25 && y25.fixed && y25.fixed !== '-') prevFixed = parseInt(y25.fixed, 10);
+      } else if (y25 && y25.fixe

@@ -1,0 +1,74 @@
+function renderCacpScheduleContent(tab = 'matrix', search = '') {
+    const tableWrap = document.getElementById('cacpScheduleTableWrap');
+    if (!tableWrap) return;
+
+    CACP_MSP_STORE.currentTab = tab;
+    CACP_MSP_STORE.currentSearch = search;
+
+    // Update tab button active states
+    document.querySelectorAll('.schedule-tab-btn').forEach(btn => {
+      if (btn.getAttribute('data-tab') === tab) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    const syncLabel = document.getElementById('cacpSyncTimeLabel');
+    if (syncLabel) syncLabel.textContent = CACP_MSP_STORE.lastSyncTime;
+
+    const matrixSyncLabel = document.getElementById('cacpMatrixSyncTime');
+    if (matrixSyncLabel) matrixSyncLabel.textContent = CACP_MSP_STORE.lastSyncTime;
+
+    let items = CACP_MSP_STORE.getAll();
+
+    if (search && search.trim()) {
+      const q = search.toLowerCase().trim();
+      items = items.filter(c => c.commodity.toLowerCase().includes(q) || c.season.toLowerCase().includes(q));
+    }
+
+    if (tab === 'matrix') {
+      // OFFICIAL GOVERNMENT CACP MATRIX BOX (cacp.da.gov.in style)
+      const matrixYears = cacpMatrixRange === 'recent'
+        ? ['2026', '2025', '2024', '2023', '2022', '2021']
+        : ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010'];
+      
+      const seasons = ['Kharif Crops', 'Rabi Crops', 'Commercial Crops'];
+      
+      let headerYearCols = '';
+      let subHeaderCols = '';
+      matrixYears.forEach(y => {
+        const nextYr = (parseInt(y, 10) + 1).toString().slice(-2);
+        const yrLabel = `${y}-${nextYr}`;
+        headerYearCols += `<th colspan="2">${yrLabel}</th>`;
+        subHeaderCols += `<th class="sub-th">Rec</th><th class="sub-th">Fixed</th>`;
+      });
+
+      let matrixBodyRows = '';
+      seasons.forEach(seasonName => {
+        const seasonItems = items.filter(i => i.season === seasonName);
+        if (seasonItems.length === 0) return;
+
+        // Season Header Row
+        matrixBodyRows += `
+          <tr class="cacp-season-header-row">
+            <td colspan="${matrixYears.length * 2 + 1}">
+              <strong>${seasonName.toUpperCase()}</strong>
+            </td>
+          </tr>
+        `;
+
+        seasonItems.forEach(c => {
+          let priceCells = '';
+          matrixYears.forEach(y => {
+            const yrData = c.years?.[y];
+            const reco = yrData?.reco && yrData.reco !== '-' ? `₹${parseInt(yrData.reco, 10).toLocaleString('en-IN')}` : '<span style="color:#B0BDB5;">-</span>';
+            const fixed = yrData?.fixed && yrData.fixed !== '-' ? `₹${parseInt(yrData.fixed, 10).toLocaleString('en-IN')}` : '<span style="color:#B0BDB5;">-</span>';
+            priceCells += `
+              <td class="cacp-price-cell-reco">${reco}</td>
+              <td class="cacp-price-cell-fixed">${fixed}</td>
+            `;
+          });
+
+          matrixBodyRows += `
+     

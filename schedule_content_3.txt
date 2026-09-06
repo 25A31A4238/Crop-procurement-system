@@ -1,0 +1,75 @@
+23', '2022', '2021', '2020', '2019', '2018'];
+      let historyRows = '';
+
+      items.forEach(c => {
+        let yrCells = '';
+        years.forEach(y => {
+          const yData = c.years?.[y];
+          const fix = yData?.fixed && yData.fixed !== '-' ? `₹${parseInt(yData.fixed, 10).toLocaleString('en-IN')}` : '<span style="color: #A0ABA3;">-</span>';
+          yrCells += `<td style="font-size: 11px;"><strong>${fix}</strong></td>`;
+        });
+
+        historyRows += `
+          <tr>
+            <td class="crop-col" style="white-space: nowrap;">
+              <span style="font-size: 16px; margin-right: 6px;">${c.icon || '🌾'}</span>
+              <strong>${c.commodity}</strong>
+              <div style="font-size: 10px; color: #7B8B7F;">${c.season}</div>
+            </td>
+            ${yrCells}
+          </tr>
+        `;
+      });
+
+      tableWrap.innerHTML = `
+        <div style="overflow-x: auto;">
+          <table class="detail-table schedule-table cacp-history-table">
+            <thead>
+              <tr>
+                <th style="text-align: left;">Crop &amp; Variety</th>
+                <th>2026-27 (₹)</th>
+                <th>2025-26 (₹)</th>
+                <th>2024-25 (₹)</th>
+                <th>2023-24 (₹)</th>
+                <th>2022-23 (₹)</th>
+                <th>2021-22 (₹)</th>
+                <th>2020-21 (₹)</th>
+                <th>2019-20 (₹)</th>
+                <th>2018-19 (₹)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${historyRows || '<tr><td colspan="10" style="text-align: center; padding: 24px; color: #7B8B7F;">No crops matching search query.</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size: 11px; color: #64746A; margin-top: 8px; text-align: right;">
+          * All historical rates in INR (₹) per Quintal as fixed &amp; published by CACP, Department of Agriculture &amp; Farmers Welfare.
+        </p>
+      `;
+      return;
+    }
+
+    // Standard Operational Views (kharif, rabi, commercial)
+    const seasonFiltered = CACP_MSP_STORE.getBySeason(tab);
+    const displayList = search && search.trim() ? seasonFiltered.filter(c => c.commodity.toLowerCase().includes(search.toLowerCase().trim())) : seasonFiltered;
+
+    let rowsHtml = '';
+    displayList.forEach(c => {
+      const details = CACP_MSP_STORE.getLatestMspDetails(c);
+      const isLive = c.window?.status === 'live';
+      const isRegOpen = c.window?.status === 'reg_open';
+      const rowClass = isLive ? 'schedule-row-active' : '';
+
+      let statusBadge = '<span class="badge-tag badge-pending">📅 Upcoming Window</span>';
+      let actionBtn = `<button type="button" class="btn-schedule-action outline" onclick="window.goToFormFilling();" title="Pre-register produce for upcoming season">Pre-Register →</button>`;
+
+      if (isLive) {
+        statusBadge = '<span class="badge-tag badge-success">🟢 Live Intake Active</span>';
+        actionBtn = `<button type="button" class="btn-schedule-action" onclick="window.goToSlotBooking();" title="Book Weighbridge Slot for ${c.commodity}">Book Slot →</button>`;
+      } else if (isRegOpen) {
+        statusBadge = '<span class="badge-tag" style="background: #FFF3CD; color: #856404; border: 1px solid #FFEEBA;">🟡 Registration Open</span>';
+        actionBtn = `<button type="button" class="btn-schedule-action outline" onclick="window.goToFormFilling();" title="Register produce in Form Filling">Register Crop →</button>`;
+      }
+
+      const formatte

@@ -1,0 +1,53 @@
+       <tr>
+              <td class="commodity-name-cell">
+                <span style="font-size: 15px; margin-right: 6px;">${c.icon || '🌾'}</span>
+                <strong>${c.commodity}</strong>
+              </td>
+              ${priceCells}
+            </tr>
+          `;
+        });
+      });
+
+      tableWrap.innerHTML = `
+        <div class="cacp-official-matrix-card">
+          <div class="cacp-matrix-top-bar">
+            <div class="cacp-matrix-title">
+              <span>🏛️ Crop &amp; Year-wise Minimum Support Price (MSP) Matrix</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <div class="matrix-range-toggle" role="group" aria-label="Year Range Filter">
+                <button type="button" class="matrix-range-btn ${cacpMatrixRange === 'recent' ? 'active' : ''}" onclick="window.setMatrixRange('recent');" title="Display Recent 6 Marketing Years in spacious zero-scroll layout">⚡ Recent Years (2021–2027)</button>
+                <button type="button" class="matrix-range-btn ${cacpMatrixRange === 'all' ? 'active' : ''}" onclick="window.setMatrixRange('all');" title="Display Full 17-Year Historical MSP Archive">📜 Full Archive (2010–2027)</button>
+              </div>
+              <span class="cacp-matrix-unit-tag">(₹/qtl) Updated on: <span id="cacpMatrixSyncTime">${CACP_MSP_STORE.lastSyncTime}</span></span>
+            </div>
+          </div>
+          <div class="cacp-matrix-scroll-wrap">
+            <table class="cacp-official-table">
+              <thead>
+                <tr>
+                  <th rowspan="2" class="commodity-th">Commodity</th>
+                  ${headerYearCols}
+                </tr>
+                <tr>
+                  ${subHeaderCols}
+                </tr>
+              </thead>
+              <tbody>
+                ${matrixBodyRows || '<tr><td colspan="' + (matrixYears.length * 2 + 1) + '" style="text-align: center; padding: 24px; color: #7B8B7F;">No crops matching search query.</td></tr>'}
+              </tbody>
+            </table>
+          </div>
+          <div style="background: #FAF7F2; padding: 8px 16px; border-top: 1px solid #E8DEC8; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 11px; color: #64746A;">
+            <div><strong>Official Legend:</strong> <span style="color:#55665B; margin-right: 12px;"><strong>Rec</strong> = Recommended by CACP</span> <span style="color:#143525;"><strong>Fixed</strong> = Approved Cabinet MSP</span></div>
+            <div>* Source: Commission for Agricultural Costs &amp; Prices (<a href="https://cacp.da.gov.in/Home/MSP" target="_blank" rel="noopener noreferrer" style="color: #1E824C; text-decoration: underline;">cacp.da.gov.in</a>)</div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (tab === 'history') {
+      // Multi-Year Price History Comparison Table (2018 to 2026)
+      const years = ['2026', '2025', '2024', '20

@@ -1,0 +1,34 @@
+
+=== Season: Kharif Crops (18 commodities) ===
+  - Paddy Common: 2026: Rec=2441, Fixed=2441, 2025: Rec=2369, Fixed=2369, 2024: Rec=2300, Fixed=2300, 2023: Rec=2183, Fixed=2183, 2022: Rec=2040, Fixed=2040
+  - Paddy(F)/Grade A: 2026: Rec=2461, Fixed=2461, 2025: Rec=2389, Fixed=2389, 2024: Rec=2320, Fixed=2320, 2023: Rec=2203, Fixed=2203, 2022: Rec=2060, Fixed=2060
+  - Jowar-Hybrid: 2026: Rec=4023, Fixed=4023, 2025: Rec=3699, Fixed=3699, 2024: Rec=3371, Fixed=3371, 2023: Rec=3180, Fixed=3180, 2022: Rec=2970, Fixed=2970
+  - Jowar-Maldandi: 2026: Rec=4073, Fixed=4073, 2025: Rec=3749, Fixed=3749, 2024: Rec=3421, Fixed=3421, 2023: Rec=3225, Fixed=3225, 2022: Rec=2990, Fixed=2990
+  - Bajra: 2026: Rec=2900, Fixed=2900, 2025: Rec=2775, Fixed=2775, 2024: Rec=2625, Fixed=2625, 2023: Rec=2500, Fixed=2500, 2022: Rec=2350, Fixed=2350
+  - Maize: 2026: Rec=2410, Fixed=2410, 2025: Rec=2400, Fixed=2400, 2024: Rec=2225, Fixed=2225, 2023: Rec=2090, Fixed=2090, 2022: Rec=1962, Fixed=1962
+  - Ragi: 2026: Rec=5205, Fixed=5205, 2025: Rec=4886, Fixed=4886, 2024: Rec=4290, Fixed=4290, 2023: Rec=3846, Fixed=3846, 2022: Rec=3578, Fixed=3578
+  - Tur (Arhar): 2026: Rec=8450, Fixed=8450, 2025: Rec=8000, Fixed=8000, 2024: Rec=7550, Fixed=7550, 2023: Rec=7000, Fixed=7000, 2022: Rec=6600, Fixed=6600
+  - Moong: 2026: Rec=8780, Fixed=8780, 2025: Rec=8768, Fixed=8768, 2024: Rec=8682, Fixed=8682, 2023: Rec=8558, Fixed=8558, 2022: Rec=7755, Fixed=7755
+  - Urad: 2026: Rec=8200, Fixed=8200, 2025: Rec=7800, Fixed=7800, 2024: Rec=7400, Fixed=7400, 2023: Rec=6950, Fixed=6950, 2022: Rec=6600, Fixed=6600
+  - Groundnut: 2026: Rec=7517, Fixed=7517, 2025: Rec=7263, Fixed=7263, 2024: Rec=6783, Fixed=6783, 2023: Rec=6377, Fixed=6377, 2022: Rec=5850, Fixed=5850
+  - Sunflower Seed: 2026: Rec=8343, Fixed=8343, 2025: Rec=7721, Fixed=7721, 2024: Rec=7280, Fixed=7280, 2023: Rec=6760, Fixed=6760, 2022: Rec=6400, Fixed=6400
+  - Soyabean Black: 2026: Rec=-, Fixed=-, 2025: Rec=-, Fixed=-, 2024: Rec=-, Fixed=-, 2023: Rec=-, Fixed=-, 2022: Rec=-, Fixed=-
+  - Soyabean Yellow: 2026: Rec=5708, Fixed=5708, 2025: Rec=5328, Fixed=5328, 2024: Rec=4892, Fixed=4892, 2023: Rec=4600, Fixed=4600, 2022: Rec=4300, Fixed=4300
+  - Sesamum: 2026: Rec=10346, Fixed=10346, 2025: Rec=9846, Fixed=9846, 2024: Rec=9267, Fixed=9267, 2023: Rec=8635, Fixed=8635, 2022: Rec=7830, Fixed=7830
+  - Nigerseed: 2026: Rec=10052, Fixed=10052, 2025: Rec=9537, Fixed=9537, 2024: Rec=8717, Fixed=8717, 2023: Rec=7734, Fixed=7734, 2022: Rec=7287, Fixed=7287
+  - Medium Staple Cotton: 2026: Rec=8267, Fixed=8267, 2025: Rec=7710, Fixed=7710, 2024: Rec=7121, Fixed=7121, 2023: Rec=6620, Fixed=6620, 2022: Rec=6080, Fixed=6080
+  - Long Staple Cotton: 2026: Rec=8667, Fixed=8667, 2025: Rec=8110, Fixed=8110, 2024: Rec=7521, Fixed=7521, 2023: Rec=7020, Fixed=7020, 2022: Rec=6380, Fixed=6380
+
+=== Season: Rabi Crops (6 commodities) ===
+  - Wheat: 2026: Rec=-, Fixed=-, 2025: Rec=2585, Fixed=2585, 2024: Rec=2425, Fixed=2425, 2023: Rec=2275, Fixed=2275, 2022: Rec=2125, Fixed=2125
+  - Barley: 2026: Rec=-, Fixed=-, 2025: Rec=2150, Fixed=2150, 2024: Rec=1980, Fixed=1980, 2023: Rec=1850, Fixed=1850, 2022: Rec=1735, Fixed=1735
+  - Gram: 2026: Rec=-, Fixed=-, 2025: Rec=5875, Fixed=5875, 2024: Rec=5650, Fixed=5650, 2023: Rec=5440, Fixed=5440, 2022: Rec=5335, Fixed=5335
+  - Lentil (Masur): 2026: Rec=-, Fixed=-, 2025: Rec=7000, Fixed=7000, 2024: Rec=6700, Fixed=6700, 2023: Rec=6425, Fixed=6425, 2022: Rec=6000, Fixed=6000
+  - Rapeseed/ Mustard: 2026: Rec=-, Fixed=-, 2025: Rec=6200, Fixed=6200, 2024: Rec=5950, Fixed=5950, 2023: Rec=5650, Fixed=5650, 2022: Rec=5450, Fixed=5450
+  - Safflower: 2026: Rec=-, Fixed=-, 2025: Rec=6540, Fixed=6540, 2024: Rec=5940, Fixed=5940, 2023: Rec=5800, Fixed=5800, 2022: Rec=5650, Fixed=5650
+
+=== Season: Commercial Crops (4 commodities) ===
+  - Jute: 2026: Rec=5925, Fixed=5925, 2025: Rec=5650, Fixed=5650, 2024: Rec=5335, Fixed=5335, 2023: Rec=5050, Fixed=5050, 2022: Rec=4750, Fixed=4750
+  - Sugarcane: 2026: Rec=365, Fixed=365, 2025: Rec=355, Fixed=355, 2024: Rec=340, Fixed=340, 2023: Rec=315, Fixed=315, 2022: Rec=305, Fixed=305
+  - Copra (Milling): 2026: Rec=-, Fixed=-, 2025: Rec=12027, Fixed=12027, 2024: Rec=11582, Fixed=11582, 2023: Rec=11160, Fixed=11160, 2022: Rec=10860, Fixed=10860
+  - Copra (Ball): 2026: Rec=-, Fixed=-, 2025: Rec=12500, Fixed=12500, 2024: Rec=12100, Fixed=12100, 2023: Rec=12000, Fixed=12000, 2022: Rec=11750, Fixed=11750
